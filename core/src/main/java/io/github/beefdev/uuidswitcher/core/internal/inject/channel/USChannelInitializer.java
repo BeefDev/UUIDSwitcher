@@ -69,7 +69,7 @@ public final class USChannelInitializer extends ChannelInitializer<Channel> {
         try {
             this.executeCurrentChannelInitializer(channel);
         } catch (Throwable throwable) {
-            throw new RuntimeException("Injection failed, please repor this to me", throwable);
+            throw new RuntimeException("Injection failed, please report this to me", throwable);
         }
     }
 }
