@@ -37,7 +37,7 @@ Then depend on the core module (you may depend on other modules but they are unl
 <dependency>
     <groupId>com.github.BeefDev.UUIDSwitcher</groupId>
     <artifactId>core</artifactId>
-    <version>v0.0.1</version>
+    <version>v0.0.2</version>
     <scope>compile</scope>
 </dependency>
 ```
