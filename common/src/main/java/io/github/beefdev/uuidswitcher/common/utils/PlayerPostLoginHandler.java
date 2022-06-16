@@ -1,6 +1,5 @@
 package io.github.beefdev.uuidswitcher.common.utils;
 
-import com.google.common.base.Preconditions;
 import io.github.beefdev.uuidswitcher.common.event.PlayerProfileCreationEvent;
 import org.bukkit.Bukkit;
 
@@ -17,32 +16,34 @@ public final class PlayerPostLoginHandler {
     private final Class<?> gameProfileClass;
     private final Object loginListener;
 
-    public PlayerPostLoginHandler(Class<?> loginListenerClass, Class<?> gameProfileClass, Object loginListener) {
-        Preconditions.checkNotNull(loginListener);
-        Preconditions.checkArgument(loginListenerClass.isAssignableFrom(loginListener.getClass()));
+    private Field gameProfileField;
+    private Field gameProfileNameField;
+    private Field gameProfileUUIDField;
+    private Constructor<?> gameProfileConstructor;
 
+    public PlayerPostLoginHandler(Class<?> loginListenerClass, Class<?> gameProfileClass, Object loginListener) {
         this.loginListenerClass = loginListenerClass;
         this.gameProfileClass = gameProfileClass;
         this.loginListener = loginListener;
     }
 
     public void updateFields() {
-        Field gameProfileField = null;
-
-        try {
-            for(Field field : this.loginListenerClass.getDeclaredFields()) {
-                if(this.gameProfileClass.isAssignableFrom(field.getType())) {
-                    gameProfileField = field;
-                    break;
+        if(this.gameProfileField == null) {
+            try {
+                for(Field field : this.loginListenerClass.getDeclaredFields()) {
+                    if(this.gameProfileClass.isAssignableFrom(field.getType())) {
+                        gameProfileField = field;
+                        break;
+                    }
                 }
+
+                if(gameProfileField == null) throw new NoSuchFieldException("Game profile field not found");
+            } catch (NoSuchFieldException exception) {
+                throw new RuntimeException(String.format("game profile field of LoginListener %s, could not be found", this.loginListenerClass.getName()), exception);
             }
 
-            if(gameProfileField == null) throw new NoSuchFieldException("Game profile field not found");
-        } catch (NoSuchFieldException exception) {
-            throw new RuntimeException(String.format("game profile field of LoginListener %s, could not be found", this.loginListenerClass.getName()), exception);
+            gameProfileField.setAccessible(true);
         }
-
-        gameProfileField.setAccessible(true);
 
         Object oldGameProfile;
 
@@ -55,20 +56,23 @@ public final class PlayerPostLoginHandler {
         String oldName;
         UUID oldUUID;
 
-        Field gameProfileNameField = null;
-        Field gameProfileUUIDField = null;
-        for(Field field : this.gameProfileClass.getDeclaredFields()) {
-            if(field.getType() == String.class) {
-                gameProfileNameField = field;
-                if(gameProfileUUIDField != null) break;
-            } else if(field.getType() == UUID.class) {
-                gameProfileUUIDField = field;
-                if(gameProfileNameField != null) break;
+        if(this.gameProfileUUIDField == null || this.gameProfileNameField == null) {
+            for(Field field : this.gameProfileClass.getDeclaredFields()) {
+                if(field.getType() == String.class) {
+                    gameProfileNameField = field;
+                    if(gameProfileUUIDField != null) break;
+                } else if(field.getType() == UUID.class) {
+                    gameProfileUUIDField = field;
+                    if(gameProfileNameField != null) break;
+                }
             }
-        }
 
-        gameProfileNameField.setAccessible(true);
-        gameProfileUUIDField.setAccessible(true);
+            if(gameProfileNameField == null) throw new RuntimeException("The name field of GameProfile was not found, this is a bug, please report it.");
+            if(gameProfileUUIDField == null) throw new RuntimeException("The UUID field of GameProfile was not found, this is a bug, please report it.");
+
+            gameProfileNameField.setAccessible(true);
+            gameProfileUUIDField.setAccessible(true);
+        }
 
         try {
             oldName = (String) gameProfileNameField.get(oldGameProfile);
@@ -84,10 +88,9 @@ public final class PlayerPostLoginHandler {
         UUID newUUID = profileCreationEvent.getUUID();
 
         Object newGameProfile;
-        Constructor<?> gameProfileConstructor = null;
 
         try {
-            gameProfileConstructor = this.gameProfileClass.getDeclaredConstructor(UUID.class, String.class);
+            if(gameProfileConstructor == null) gameProfileConstructor = this.gameProfileClass.getDeclaredConstructor(UUID.class, String.class);
             newGameProfile = gameProfileConstructor.newInstance(newUUID, newName);
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
             throw new RuntimeException(String.format("Unexpected exception while invoking game profile constructor, please report this to me. \nGameProfile class=%s\nconstructor=%s", this.gameProfileClass.getName(), gameProfileConstructor));
@@ -100,6 +103,5 @@ public final class PlayerPostLoginHandler {
         } catch (IllegalAccessException exception) {
             throw new RuntimeException("Unexpected exception while setting new game profile, please report this", exception);
         }
-        gameProfileField.setAccessible(false);
     }
 }

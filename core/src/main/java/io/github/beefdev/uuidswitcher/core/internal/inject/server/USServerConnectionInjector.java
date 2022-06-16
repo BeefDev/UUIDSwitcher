@@ -6,16 +6,28 @@ import io.github.beefdev.uuidswitcher.core.internal.utils.SynchronizedListWrappe
 import io.netty.channel.ChannelFuture;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.List;
 
 public final class USServerConnectionInjector {
 
     private final Object minecraftServer;
     private final Object serverConnection;
+    private final Class<?> minecraftServerClass;
+    private final Class<?> networkManagerClass;
+    private final Class<?> packetListenerClass;
+    private final Class<?> usHandshakeListenerClass;
+    private final Method setPacketListenerMethod;
 
-    public USServerConnectionInjector(Object minecraftServer, Object serverConnection) {
+    public USServerConnectionInjector(Class<?> minecraftServerClass, Class<?> networkManagerClass, Class<?> packetListenerClass, Class<?> usHandshakeListenerClass, Method setPacketListenerMethod, Object minecraftServer, Object serverConnection) {
         this.minecraftServer = minecraftServer;
         this.serverConnection = serverConnection;
+
+        this.minecraftServerClass = minecraftServerClass;
+        this.networkManagerClass = networkManagerClass;
+        this.packetListenerClass = packetListenerClass;
+        this.usHandshakeListenerClass = usHandshakeListenerClass;
+        this.setPacketListenerMethod = setPacketListenerMethod;
     }
 
     @SuppressWarnings("unchecked")
@@ -53,6 +65,6 @@ public final class USServerConnectionInjector {
     }
 
     private void injectChannelFuture(ChannelFuture future) {
-        new USChannelFutureInjector(this.minecraftServer, future).inject();
+        new USChannelFutureInjector(this.minecraftServerClass, this.networkManagerClass, this.packetListenerClass, this.usHandshakeListenerClass, this.setPacketListenerMethod, this.minecraftServer, future).inject();
     }
 }

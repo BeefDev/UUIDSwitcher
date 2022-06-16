@@ -6,21 +6,33 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public final class USChannelFutureInjector {
 
     private final Object minecraftServer;
     private final ChannelFuture injectionTarget;
+    private final Class<?> minecraftServerClass;
+    private final Class<?> networkManagerClass;
+    private final Class<?> packetListenerClass;
+    private final Class<?> usHandshakeListenerClass;
+    private final Method setPacketListenerMethod;
 
-    public USChannelFutureInjector(Object minecraftServer, ChannelFuture injectionTarget) {
+    public USChannelFutureInjector(Class<?> minecraftServerClass, Class<?> networkManagerClass, Class<?> packetListenerClass, Class<?> usHandshakeListenerClass, Method setPacketListenerMethod, Object minecraftServer, ChannelFuture injectionTarget) {
         this.minecraftServer = minecraftServer;
         this.injectionTarget = injectionTarget;
+
+        this.minecraftServerClass = minecraftServerClass;
+        this.networkManagerClass = networkManagerClass;
+        this.packetListenerClass = packetListenerClass;
+        this.usHandshakeListenerClass = usHandshakeListenerClass;
+        this.setPacketListenerMethod = setPacketListenerMethod;
     }
 
     public void inject() {
         ChannelHandler bootstrapAcceptor = this.retrieveBootstrapAcceptor();
         ChannelInitializer<Channel> oldChannelInitializer = this.retrieveChildHandler(bootstrapAcceptor);
-        ChannelInitializer<Channel> newChannelInitializer = new USChannelInitializer(this.minecraftServer, oldChannelInitializer);
+        ChannelInitializer<Channel> newChannelInitializer = new USChannelInitializer(minecraftServerClass, networkManagerClass, packetListenerClass, usHandshakeListenerClass, setPacketListenerMethod, this.minecraftServer, oldChannelInitializer);
 
         this.injectChildHandler(bootstrapAcceptor, newChannelInitializer);
     }
