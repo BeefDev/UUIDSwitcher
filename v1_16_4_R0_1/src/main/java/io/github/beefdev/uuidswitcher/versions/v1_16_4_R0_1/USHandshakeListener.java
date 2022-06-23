@@ -100,7 +100,7 @@ public final class USHandshakeListener implements PacketHandshakingInListener {
                         }
                     }
 
-                    ((LoginListener)this.c.j()).hostname = packethandshakinginsetprotocol.hostname + ":" + packethandshakinginsetprotocol.port;
+                    ((USLoginListener)this.c.j()).hostname = packethandshakinginsetprotocol.hostname + ":" + packethandshakinginsetprotocol.port;
                 }
                 break;
             default:

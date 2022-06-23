@@ -91,8 +91,8 @@ public final class USHandshakeListener implements PacketHandshakingInListener {
                     }
 
                     try {
-                        LoginListener.class.getDeclaredField("hostname");
-                        ((LoginListener)this.b.getPacketListener()).hostname = packethandshakinginsetprotocol.b + ":" + packethandshakinginsetprotocol.c;
+                        USLoginListener.class.getDeclaredField("hostname");
+                        ((USLoginListener)this.b.getPacketListener()).hostname = packethandshakinginsetprotocol.b + ":" + packethandshakinginsetprotocol.c;
                     } catch (Throwable ignored){}
 
                 }

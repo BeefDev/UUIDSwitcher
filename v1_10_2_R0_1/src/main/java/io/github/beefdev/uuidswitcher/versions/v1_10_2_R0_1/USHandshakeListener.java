@@ -90,7 +90,7 @@ public final class USHandshakeListener implements PacketHandshakingInListener {
                         }
                     }
 
-                    ((LoginListener)this.b.i()).hostname = packethandshakinginsetprotocol.hostname + ":" + packethandshakinginsetprotocol.port;
+                    ((USLoginListener)this.b.i()).hostname = packethandshakinginsetprotocol.hostname + ":" + packethandshakinginsetprotocol.port;
                 }
                 break;
             case STATUS:

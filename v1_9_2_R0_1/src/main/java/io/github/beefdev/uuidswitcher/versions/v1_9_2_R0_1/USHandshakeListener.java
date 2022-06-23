@@ -3,6 +3,7 @@ package io.github.beefdev.uuidswitcher.versions.v1_9_2_R0_1;
 import com.google.gson.Gson;
 import com.mojang.authlib.properties.Property;
 import com.mojang.util.UUIDTypeAdapter;
+import io.netty.handler.codec.DecoderException;
 import net.minecraft.server.v1_9_R1.*;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.LogManager;
@@ -95,7 +96,7 @@ public final class USHandshakeListener implements PacketHandshakingInListener {
                         }
                     }
 
-                    ((LoginListener)this.b.i()).hostname = packethandshakinginsetprotocol.hostname + ":" + packethandshakinginsetprotocol.port;
+                    ((USLoginListener)this.b.i()).hostname = packethandshakinginsetprotocol.hostname + ":" + packethandshakinginsetprotocol.port;
                 }
                 break;
             case STATUS:

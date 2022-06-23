@@ -5,7 +5,7 @@
     <parent>
         <artifactId>parent</artifactId>
         <groupId>io.github.beefdev.UUIDSwitcher</groupId>
-        <version>v0.0.2</version>
+        <version>v1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -60,7 +60,7 @@
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>common</artifactId>
-            <version>v0.0.2</version>
+            <version>v1.0.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

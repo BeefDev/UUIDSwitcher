@@ -12,7 +12,6 @@ import net.minecraft.network.protocol.handshake.PacketHandshakingInListener;
 import net.minecraft.network.protocol.handshake.PacketHandshakingInSetProtocol;
 import net.minecraft.network.protocol.login.PacketLoginOutDisconnect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.LoginListener;
 import net.minecraft.server.network.PacketStatusListener;
 import org.apache.logging.log4j.LogManager;
 import org.spigotmc.SpigotConfig;
@@ -123,7 +122,7 @@ public class USHandshakeListener implements PacketHandshakingInListener {
                     }
                 }
 
-                ((LoginListener)this.c.j()).hostname = packethandshakinginsetprotocol.c + ":" + packethandshakinginsetprotocol.d;
+                ((USLoginListener)this.c.j()).hostname = packethandshakinginsetprotocol.c + ":" + packethandshakinginsetprotocol.d;
                 break;
             default:
                 throw new UnsupportedOperationException("Invalid intention " + packethandshakinginsetprotocol.b());
