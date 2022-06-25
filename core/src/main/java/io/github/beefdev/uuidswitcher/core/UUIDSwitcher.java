@@ -38,7 +38,7 @@ public final class UUIDSwitcher {
                 "net.minecraft.network.PacketListener"
         );
 
-        Class<?> usHandshakeListenerClass = new HandshakeListenerProvider("io.github.beefdev.uuidswitcher.versions", new MinecraftVersionParser().parseVersion()).retrieveCustomHandshakeListenerClass();
+        Class<?> usHandshakeListenerClass = new HandshakeListenerProvider(UUIDSwitcher.class.getPackage().getName().replace("core", "versions"), new MinecraftVersionParser().parseVersion()).retrieveCustomHandshakeListenerClass();
 
         Method setPacketListenerMethod = null;
         for (Method method : networkManagerClass.getDeclaredMethods()) {

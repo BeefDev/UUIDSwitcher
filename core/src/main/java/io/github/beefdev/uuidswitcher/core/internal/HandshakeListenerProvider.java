@@ -28,10 +28,11 @@ public final class HandshakeListenerProvider {
     }
 
     public Class<?> retrieveCustomHandshakeListenerClass() {
+        String className = String.format("%s.%s.USHandshakeListener", this.basePackage, this.parsedMinecraftVersion);
         try {
-            return Class.forName(String.format("%s.%s.USHandshakeListener", this.basePackage, this.parsedMinecraftVersion));
+            return Class.forName(className);
         } catch (ClassNotFoundException exception) {
-            throw new RuntimeException(String.format("Custom handshake listener class was not found. This usually means that you are trying to run the plugin on an unsupported server version (%s). If you are certain your version is supported then this is a bug, please report it to me", this.parsedMinecraftVersion), exception);
+            throw new RuntimeException(String.format("Custom handshake listener class (%s) was not found. This usually means that you are trying to run the plugin on an unsupported server version (%s). If you are certain your version is supported then this is a bug, please report it to me", className, this.parsedMinecraftVersion), exception);
         }
     }
 }

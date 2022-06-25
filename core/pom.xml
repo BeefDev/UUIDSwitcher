@@ -5,7 +5,7 @@
     <parent>
         <artifactId>parent</artifactId>
         <groupId>io.github.beefdev.UUIDSwitcher</groupId>
-        <version>v1.0.0</version>
+        <version>v1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -61,7 +61,7 @@
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>common</artifactId>
-            <version>v1.0.0</version>
+            <version>v1.0.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -74,194 +74,194 @@
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_8_3_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_8_8_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_9_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_9_2_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_9_4_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_10_2_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_11_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_11_2_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_12_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_12_1_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_12_2_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_13_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_13_1_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_13_2_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_14_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_14_2_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_14_3_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_14_4_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_15_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_15_1_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_15_2_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_16_1_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_16_2_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_16_3_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_16_4_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_16_5_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_17_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_17_1_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_18_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_18_1_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_18_2_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.beefdev.UUIDSwitcher</groupId>
             <artifactId>v1_19_R0_1</artifactId>
-            <version>v1.0.0</version>
-            <scope>runtime</scope>
+            <version>v1.0.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
