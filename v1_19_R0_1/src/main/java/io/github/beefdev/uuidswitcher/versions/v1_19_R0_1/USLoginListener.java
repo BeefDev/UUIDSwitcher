@@ -38,6 +38,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.security.PrivateKey;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -360,7 +361,13 @@ public final class USLoginListener extends LoginListener implements PacketLoginI
             uniqueId = asyncProfileCreationEvent.getUUID();
             playerName = asyncProfileCreationEvent.getName();
 
-            USLoginListener.this.m = new GameProfile(uniqueId, playerName);
+            GameProfile gameProfile = new GameProfile(uniqueId, playerName);
+            gameProfile.getProperties().clear();
+            for(Map.Entry<String, Property> entry : USLoginListener.this.m.getProperties().entries()) {
+                gameProfile.getProperties().put(entry.getKey(), entry.getValue());
+            }
+
+            USLoginListener.this.m = gameProfile;
 
             AsyncPlayerPreLoginEvent asyncEvent = new AsyncPlayerPreLoginEvent(playerName, address, uniqueId);
             server.getPluginManager().callEvent(asyncEvent);

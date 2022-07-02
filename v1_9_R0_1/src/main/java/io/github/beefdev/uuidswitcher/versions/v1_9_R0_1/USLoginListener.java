@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.exceptions.AuthenticationUnavailableException;
 import com.mojang.authlib.properties.Property;
+import io.github.beefdev.uuidswitcher.common.event.AsyncPlayerProfileCreationEvent;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.util.concurrent.GenericFutureListener;
@@ -22,6 +23,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.security.PrivateKey;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -237,7 +239,23 @@ public class USLoginListener extends LoginListener implements PacketLoginInListe
             String playerName = USLoginListener.this.i.getName();
             InetAddress address = ((InetSocketAddress) USLoginListener.this.networkManager.getSocketAddress()).getAddress();
             UUID uniqueId = USLoginListener.this.i.getId();
+
             final CraftServer server = USLoginListener.this.server.server;
+
+            AsyncPlayerProfileCreationEvent asyncProfileCreationEvent = new AsyncPlayerProfileCreationEvent(address, playerName, uniqueId);
+            server.getPluginManager().callEvent(asyncProfileCreationEvent);
+
+            uniqueId = asyncProfileCreationEvent.getUUID();
+            playerName = asyncProfileCreationEvent.getName();
+
+            GameProfile gameProfile = new GameProfile(uniqueId, playerName);
+            gameProfile.getProperties().clear();
+            for(Map.Entry<String, Property> entry : USLoginListener.this.i.getProperties().entries()) {
+                gameProfile.getProperties().put(entry.getKey(), entry.getValue());
+            }
+
+            USLoginListener.this.i = gameProfile;
+
             AsyncPlayerPreLoginEvent asyncEvent = new AsyncPlayerPreLoginEvent(playerName, address, uniqueId);
             server.getPluginManager().callEvent(asyncEvent);
             if (PlayerPreLoginEvent.getHandlerList().getRegisteredListeners().length != 0) {
