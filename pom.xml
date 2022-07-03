@@ -7,7 +7,7 @@
     <groupId>io.github.beefdev.UUIDSwitcher</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
-    <version>v1.0.2</version>
+    <version>v1.0.3</version>
     <modules>
         <module>common</module>
         <module>core</module>

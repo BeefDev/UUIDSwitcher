@@ -44,7 +44,7 @@ import java.util.regex.Pattern;
 public final class USLoginListener extends LoginListener implements PacketLoginInListener {
     static final Pattern PROP_PATTERN = Pattern.compile("\\w{0,16}");
     private static final AtomicInteger b = new AtomicInteger(0);
-    static final Logger c = LogManager.getLogger();
+    static final Logger c = LogManager.getLogger(LoginListener.class);
     private static final int d = 600;
     private static final Random e = new Random();
     private final byte[] f = new byte[4];

@@ -31,7 +31,7 @@ import java.util.logging.Level;
 
 public class USLoginListener extends LoginListener implements PacketLoginInListener, ITickable {
     private static final AtomicInteger b = new AtomicInteger(0);
-    private static final Logger c = LogManager.getLogger();
+    private static final Logger c = LogManager.getLogger(LoginListener.class);
     private static final Random random = new Random();
     private final byte[] e = new byte[4];
     private final MinecraftServer server;

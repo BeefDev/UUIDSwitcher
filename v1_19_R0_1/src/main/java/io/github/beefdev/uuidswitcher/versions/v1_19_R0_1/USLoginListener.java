@@ -29,6 +29,7 @@ import org.bukkit.craftbukkit.v1_19_R1.util.Waitable;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerPreLoginEvent;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 import javax.crypto.Cipher;
@@ -46,7 +47,7 @@ import java.util.logging.Level;
 
 public final class USLoginListener extends LoginListener implements PacketLoginInListener {
     private static final AtomicInteger b = new AtomicInteger(0);
-    static final Logger c = LogUtils.getLogger();
+    static final Logger c = LoggerFactory.getLogger(LoginListener.class);
     private static final int d = 600;
     private static final RandomSource e = RandomSource.a();
     private static final IChatBaseComponent f = IChatBaseComponent.c("multiplayer.disconnect.missing_public_key");

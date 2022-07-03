@@ -5,6 +5,7 @@ import com.mojang.authlib.properties.Property;
 import com.mojang.util.UUIDTypeAdapter;
 import net.minecraft.server.v1_8_R3.*;
 import org.apache.logging.log4j.LogManager;
+import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.spigotmc.SpigotConfig;
 
 import java.net.InetAddress;
