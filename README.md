@@ -1,4 +1,7 @@
 # UUIDSwitcher
+
+<b>Currently the latest JitPack release is broken, you can head over to Jitpack.io and select the latest from the commits tab for BeefDev/UUIDSwitcher to import it.</b>
+
 An easy to use but powerful API for spigot servers which gives developers control over the UUID and name a player logs in with. This changes the result of Player#getUniqueId and Player#getName effectively giving the player a "new minecraft account" for that specific server, as plugins and minecraft itself don't connect them to the previous uuid in any way. Using this API players can connect as brand-new accounts, or connect to the server as a different players account.
 
 # Documentation
