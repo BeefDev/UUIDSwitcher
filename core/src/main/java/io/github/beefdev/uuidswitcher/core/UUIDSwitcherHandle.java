@@ -15,7 +15,7 @@ final class UUIDSwitcherHandle {
             throw new IllegalStateException("Injector is already initialized, did you call onEnable twice?");
         }
 
-        this.injector = MinecraftVersion.RUNNING.newerThan(MinecraftVersion.v1_19) ? new ServicesInjector() : new MinecraftSessionServiceInjector();
+        this.injector = MinecraftVersion.RUNNING.newerThan(MinecraftVersion.v1_18_2) ? new ServicesInjector() : new MinecraftSessionServiceInjector();
         this.injector.inject(this.getMinecraftServer());
     }
 
