@@ -119,9 +119,12 @@ public final class MinecraftVersion {
 
         String[] versionNumbers = formattedVersionNumbers.split("\\.");
 
+        int major = Integer.parseInt(versionNumbers[0]);
+        int minor = versionNumbers.length > 1 ? Integer.parseInt(versionNumbers[1]) : 0;
+
         return new MinecraftVersion(
-                Integer.parseInt(versionNumbers[0]),
-                Integer.parseInt(versionNumbers[1])
+                major,
+                minor
         );
     }
 
