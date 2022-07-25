@@ -4,50 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.beefdev.UUIDSwitcher</groupId>
+    <groupId>io.github.beefdev.uuidswitcher</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
-    <version>v1.0.3</version>
+    <version>v2.0.0-SNAPSHOT</version>
     <modules>
         <module>common</module>
         <module>core</module>
-        <module>v1_8_3_R0_1</module>
-        <module>v1_17_R0_1</module>
-        <module>v1_8_8_R0_1</module>
-        <module>v1_9_2_R0_1</module>
-        <module>v1_9_4_R0_1</module>
-        <module>v1_9_R0_1</module>
-        <module>v1_10_2_R0_1</module>
-        <module>v1_11_R0_1</module>
-        <module>v1_11_2_R0_1</module>
-        <module>v1_12_R0_1</module>
-        <module>v1_12_1_R0_1</module>
-        <module>v1_12_2_R0_1</module>
-        <module>v1_13_R0_1</module>
-        <module>v1_13_1_R0_1</module>
-        <module>v1_13_2_R0_1</module>
-        <module>v1_14_R0_1</module>
-        <module>v1_14_2_R0_1</module>
-        <module>v1_14_3_R0_1</module>
-        <module>v1_14_4_R0_1</module>
-        <module>v1_15_R0_1</module>
-        <module>v1_15_1_R0_1</module>
-        <module>v1_15_2_R0_1</module>
-        <module>v1_16_1_R0_1</module>
-        <module>v1_16_2_R0_1</module>
-        <module>v1_16_3_R0_1</module>
-        <module>v1_16_4_R0_1</module>
-        <module>v1_16_5_R0_1</module>
-        <module>v1_17_1_R0_1</module>
-        <module>v1_18_R0_1</module>
-        <module>v1_18_1_R0_1</module>
-        <module>v1_18_2_R0_1</module>
-        <module>v1_19_R0_1</module>
+        <module>authlib</module>
     </modules>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>

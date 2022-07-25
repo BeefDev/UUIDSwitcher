@@ -1,46 +1,136 @@
 # UUIDSwitcher
 
-<b>Currently the latest JitPack release is broken, you can head over to Jitpack.io and select the latest from the commits tab for BeefDev/UUIDSwitcher to import it.</b>
-
-An easy to use but powerful API for spigot servers which gives developers control over the UUID and name a player logs in with. This changes the result of Player#getUniqueId and Player#getName effectively giving the player a "new minecraft account" for that specific server, as plugins and minecraft itself don't connect them to the previous uuid in any way. Using this API players can connect as brand-new accounts, or connect to the server as a different players account.
-
-# Documentation
-Using UUIDSwitcher is extremely simple and can work in all minecraft versions 1.8 - 1.19 without any extra work from the developer.
-
-To enable UUIDSwitcher (typically in the onEnable method of your plugin) simply call `UUIDSwitcher.onEnable();`
-
-After it is enabled whenever a player logs in a <b>PlayerProfileCreationEvent</b> event will be fired
-```java
-@EventHandler
-public void onLogin(PlayerProfileCreationEvent event) {
-    event.setName(myName);
-    event.setUUID(myUUID);
-}
-```
-As shown above you can set the name and uuid a player will have through a listener and UUIDSwitcher will handle the rest.
-
-# How it works
-When the onEnable method is called, UUIDSwitcher gets the nms MinecraftServer instance, finds the ServerConnection object, and replaces the connection list (client list) with a custom list wrapper. Whenever a connection is added to that list the channel initializer is swapped with a custom one. That initializer still runs the previous one (to ensure login works correctly and to be compatible with other plugins using a similar method eg: ViaVersion). 
-<br>
-<br>
-Normally the Minecraft initializer would assign a HandshakeListener to the clients NetworkManager to accept a handshake packet (that is what starts the login process). However, UUIDSwitcher replaces that with a custom HandshakeListener. This has been coded and tested separately for every spigot version to ensure compatibility, it works exactly like the normal HandshakeListener, but when the handshake packet to start the login process is received, it sets the packet listener to a custom LoginListener rather than the vanilla one. That listener also works exactly like the vanilla one, but it overrides the method called after login is complete, to fire the event and change the obtained GameProfile before calling the normal method to add the player to the server.
+An easy to use but powerful API for minecraft servers which gives developers control over the UUID, name, and properties/textures a player logs in with. This changes the result of Player#getUniqueId, Player#getName, GameProfile#getProperties effectively giving the player a "new minecraft account" for that specific server, as plugins and minecraft itself don't connect them to the previous UUID & name in any way. Using this API players can connect as brand-new accounts, or connect to the server as another player.
 
 # API Usage
-To use UUIDSwitcher in your own project, simply import it through maven. 
-<br>
-First add the Jitpack repository.
+
+Originally the project used <a href="https://jitpack.io">Jitpack</a>, however due to a couple issues with it, we have migrated over to <a href="https://codemc.io/">CodeMC</a>.
+<br><br>
+<details>
+    <summary>Importing the API using maven</summary>
+
+First, add the CodeMC repository to your repositories if you haven't already.
 ```xml
 <repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
+    <id>codemc-repo</id>
+    <url>https://repo.codemc.org/repository/maven-public/</url>
 </repository>
 ```
-Then depend on the core module (you may depend on other modules but they are unlikely to be of any use to you)
+Then add the UUIDSwitcher dependency to your project
 ```xml
 <dependency>
-    <groupId>com.github.BeefDev.UUIDSwitcher</groupId>
+    <groupId>io.github.beefdev.uuidswitcher</groupId>
     <artifactId>core</artifactId>
-    <version>{VERSION}</version>
+    <version>VERSION</version>
     <scope>compile</scope>
 </dependency>
 ```
+I highly recommend relocating the dependency using the <a href="https://maven.apache.org/plugins/maven-shade-plugin/">maven shade plugin</a>, as failure to do that will likely cause conflicts with other plugins using the API.
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.3.0</version>
+            <executions>
+                <execution>
+                    <id>shade</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <relocations>
+                    <relocation>
+                        <pattern>io.github.beefdev.uuidswitcher</pattern>
+                        <shadedPattern>YOUR PACKAGE HERE</shadedPattern>
+                    </relocation>
+                </relocations>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+</details>
+
+# Documentation
+Using UUIDSwitcher is very simple, here is a short explanation of how to use it
+<br>
+<br>
+To use the API, you must enable it using `UUIDSwitcher.onEnable`. It is also a good practice to disable it inside your onDisable method using `UUIDSwitcher.onDisable`. 
+```java
+public final class MyPlugin extends JavaPlugin {
+    
+    @Override
+    public void onEnable() {
+        UUIDSwitcher.onEnable();
+    }
+    
+    @Override
+    public void onDisable() {
+        UUIDSwitcher.onDisable();
+    }
+}
+```
+If no exceptions are thrown upon calling `UUIDSwitcher.onEnable`, the API will be enabled and ready for you to use!
+Whenever a player logs in an event called `AsyncPlayerProfileCreationEvent` is fired. It is important to note that this event is fired before the PlayerPreLogin events & every other spigot event, thus you might experience errors trying to load information from other plugin APIs inside this events listener.
+<br><br>
+You can listen to the event and modify its properties as shown below.
+
+```java
+
+public final class MyListener implements Listener {
+    @EventHandler
+    public void onProfileCreation(AsyncPlayerProfileCreationEvent event) {
+        UUID originalUUID = event.getGameProfile().getUuid;
+        String originalName = event.getGameProfile().getName();
+        WrappedSignedPropertyMap originalProperties = event.getGameProfile().getProperties();
+
+        WrappedGameProfile newProfile = new WrappedGameProfile(myNewUUID, "myNewName", new WrappedSignedPropertyMap());
+        event.setGameProfile(newProfile);
+        
+        event.getAddress().ifPresent(address -> {});
+    }
+}
+```
+Let's go over it step by step. The event has a WrappedGameProfile attached to it, you can get that by using `AsyncPlayerProfileCreationEvent#getGameProfile`, you can later set that profile to change the profile the player logs in with using `AsyncPlayerProfileCreationEvent#setGameProfile(WrappedGameProfile)`.
+<ul>
+    <li>WrappedGameProfile#getUuid returns the UUID attached to this game profile</li>
+    <li>WrappedGameProfile#getName returns the name attached to this game profile</li>
+    <li>WrappedGameProfile#getProperties returns a WrappedSignedPropertyMap containing all the properties (mostly used for textures/skins) in the form of a WrappedSignedProperty.</li>
+    <ul>
+        <li>WrappedSignedPropertyMap can be used exactly like the Mojang PropertyMap</li>
+        <li>WrappedSignedProperty can be used exactly like a mojang Property</li>
+    </ul>
+</ul>
+The only other field of the event is an InetAddress representing the players IP address, however that is not provided in versions prior to 1.11 so the method getAddress returns an Optional instead.
+
+# How it works
+To understand how UUIDSwitcher works you need to first have a basic understand of how login is handled inside the minecraft server code.
+
+<ul>
+    <li>Server - Client connection initialized</li>
+    <ul>
+        <li>Servers assigns a HandshakeListener to the players NetworkManager</li>
+    </ul>
+    <li>Client sends a handshake packet with an id of 2 (LOGIN)</li>
+    <ul>
+        <li>Servers checks the id of the packet and assigns a LoginListener to the players NetworkManager</li>
+    </ul>
+    <li>...</li>
+    <li>Client sends the encryption start packet</li>
+    <ul>
+        <li>The server starts a new thread for authentication</li>
+        <ul>
+            <li><b>The LoginListener gets a field of the MinecraftServer, the MinecraftSessionService and calls MinecraftSessionService#hasJoinedServer. This takes in a GameProfile without a UUID, does its magic and returns the actual profile. </b></li>
+            <li>After the profile is retrieved PreLogin events and other stuff such as adding the player to the server happen.</li>
+        </ul>
+    </ul>
+</ul>
+
+Previously UUIDSwitcher extended LoginListener and spoofed the GameProfile before the PreLogin events were fired. This however required a rewrite for every minor version of minecraft and was incompatible with other platforms.
+<br><br>
+However the new method is much more efficient, implementing the MinecraftSessionService interface and using the default minecraft one as a delegate, only really changing the result of the hasJoinedServer method to replace the GameProfile. That delegator is later set as the new MinecraftSessionService inside MinecraftServer using some black magic (sun.misc.Unsafe). Whats more, the new method will likely eliminate any (possible) performance issues the previous one had.
